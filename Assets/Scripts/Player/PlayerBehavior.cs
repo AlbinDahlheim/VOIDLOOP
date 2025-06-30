@@ -94,7 +94,6 @@ public class PlayerBehavior : MonoBehaviour
     private void UpdatePhysics()
     {
         rb2d.linearVelocity = movementForce + externalForce;
-        Debug.Log(rb2d.linearVelocity);
     }
 
     public void ChangeState(PlayerState targetState)

@@ -1,10 +1,20 @@
+using System;
 using UnityEngine;
 
 [System.Serializable]
 
 public class PlayerSheathed : PlayerState
 {
+    private const float RUN_ANIMATION_SPEED = 1.0f;
+
     public float movementSpeed;
+
+    private PlayerBehavior.Direction previousDirection;
+
+    private float timeSincePreviousDirection;
+    private bool isIdle;
+
+    private float animationPoint;
 
     public override void OnValidate(PlayerBehavior player)
     {
@@ -13,20 +23,31 @@ public class PlayerSheathed : PlayerState
 
     public override void Enter()
     {
-        // do stuff
+        previousDirection = player.facingDirection;
+        timeSincePreviousDirection = 0.0f;
+        animationPoint = 0.0f;
     }
 
     public override void Update()
     {
-        FlipDirection();
+        UpdateFlip();
 
         if (player.LeftStickInput != Vector2.zero)
+        {
             UpdateRunning();
+            isIdle = false;
+        }
         else
+        {
+            if (!isIdle)
+                EnteredIdle();
+
             UpdateIdle();
+            isIdle = true;
+        }
     }
 
-    private void FlipDirection()
+    private void UpdateFlip()
     {
         if (player.facingDirection == PlayerBehavior.Direction.UP || player.facingDirection == PlayerBehavior.Direction.DOWN)
             return;
@@ -39,12 +60,28 @@ public class PlayerSheathed : PlayerState
 
     private void UpdateRunning()
     {
-        player.facingDirection = player.GetDirectionOfVector(player.LeftStickInput);
+        PlayerBehavior.Direction currentDirection = player.GetDirectionOfVector(player.LeftStickInput);
+        if (player.facingDirection != currentDirection)
+            ChangeDirection(currentDirection);
+
+        animationPoint += Time.deltaTime * RUN_ANIMATION_SPEED * 2.0f; // 6 frames, 12 fps
+        timeSincePreviousDirection += Time.deltaTime;
+
+        if (animationPoint >= 1.0f)
+            animationPoint -= 1.0f;
 
         Vector2 runVelocity = player.LeftStickInput.normalized * movementSpeed;
         player.movementForce = runVelocity;
 
-        player.animator.Play($"RUN_{player.GetDirectionName()}_SHEATHED");
+        player.animator.Play($"RUN_{player.GetDirectionName()}_SHEATHED", 0, animationPoint);
+    }
+
+    private void ChangeDirection(PlayerBehavior.Direction currentDirection)
+    {
+        previousDirection = player.facingDirection;
+        player.facingDirection = currentDirection;
+
+        timeSincePreviousDirection = 0.0f;
     }
 
     private void UpdateIdle()
@@ -52,5 +89,37 @@ public class PlayerSheathed : PlayerState
         player.movementForce = Vector2.zero;
 
         player.animator.Play($"IDLE_{player.GetDirectionName()}_SHEATHED");
+    }
+
+    private void EnteredIdle()
+    {
+        animationPoint = 0.0f;
+
+        CorrectDirection();
+    }
+
+    private void CorrectDirection()
+    {
+        int currentDirectionValue = (int)player.facingDirection;
+        int previousDirectionValue = (int)previousDirection;
+
+        if (!IsCurrentNextToPrevious(currentDirectionValue, previousDirectionValue))
+            return;
+
+        float maxTimePassedAllowed = 0.03f;
+
+        if (timeSincePreviousDirection > maxTimePassedAllowed)
+            return;
+
+        // Odd = diagonal direction
+        if ((int)previousDirection % 2 == 1)
+            ChangeDirection(previousDirection);
+    }
+
+    private bool IsCurrentNextToPrevious(int current, int previous)
+    {
+        int difference = Math.Abs(current - previous);
+        // Since there are 8 directions, we also need to take the difference between min and max direction values into account
+        return (difference == 1 || difference == 7);
     }
 }
