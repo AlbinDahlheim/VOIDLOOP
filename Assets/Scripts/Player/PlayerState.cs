@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [System.Serializable]
 
@@ -18,4 +19,6 @@ public class PlayerState
     public virtual void Update() { }
 
     public virtual void FixedUpdate() { }
+
+    public virtual void SwordInput(InputAction.CallbackContext context) { }
 }

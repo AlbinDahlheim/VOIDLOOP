@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,11 +23,17 @@ public class PlayerBehavior : MonoBehaviour
     // Player Input Actions
     public PlayerInputActions inputActions;
     private InputAction moveAction;
+    private InputAction swordAction;
 
     public Animator animator;
     public SpriteRenderer spriteRenderer;
+    public SpriteRenderer shadowRenderer;
     public Rigidbody2D rb2d;
     public AudioSource audioSource;
+
+    public Color defaultBodyColor;
+    public Color defaultSwordColor;
+    public Color defaultEyeColor;
 
     public Vector2 LeftStickInput => leftStickInput;
     private Vector2 leftStickInput;
@@ -59,11 +66,17 @@ public class PlayerBehavior : MonoBehaviour
     {
         moveAction = inputActions.Player.Move;
         moveAction.Enable();
+
+        swordAction = inputActions.Player.Sword;
+        swordAction.Enable();
+        swordAction.performed += SwordInput;
+        swordAction.canceled += SwordInput;
     }
 
     private void OnDisable()
     {
         moveAction.Disable();
+        swordAction.Disable();
     }
 
     private void Update()
@@ -89,6 +102,11 @@ public class PlayerBehavior : MonoBehaviour
             leftStickInput.x = 0.0f;
         if (Mathf.Abs(leftStickInput.y) <= plusShapedDeadzone)
             leftStickInput.y = 0.0f;
+    }
+
+    private void SwordInput(InputAction.CallbackContext context)
+    {
+        currentState.SwordInput(context);
     }
 
     private void UpdatePhysics()
@@ -123,5 +141,16 @@ public class PlayerBehavior : MonoBehaviour
         directionName = directionName.Replace("LEFT", "SIDE");
 
         return directionName;
+    }
+
+    public void PaletteSwap(Color outlineColor, Color? bodyColor = null, Color? swordColor = null, Color? eyeColor = null)
+    {
+        spriteRenderer.material.SetColor("_OutlineTargetColor", outlineColor);
+        spriteRenderer.material.SetColor("_BodyTargetColor", bodyColor ?? defaultBodyColor);
+        spriteRenderer.material.SetColor("_SwordTargetColor", swordColor ?? defaultSwordColor);
+        spriteRenderer.material.SetColor("_EyeTargetColor", eyeColor ?? defaultEyeColor);
+
+        Color shadowColor = Color.Lerp(outlineColor, Color.black, 0.75f);
+        shadowRenderer.material.SetColor("_TargetColor", shadowColor);
     }
 }

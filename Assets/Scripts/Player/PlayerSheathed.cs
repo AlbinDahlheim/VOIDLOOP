@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [System.Serializable]
 
@@ -121,5 +122,11 @@ public class PlayerSheathed : PlayerState
         int difference = Math.Abs(current - previous);
         // Since there are 8 directions, we also need to take the difference between min and max direction values into account
         return (difference == 1 || difference == 7);
+    }
+
+    public override void SwordInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            player.ChangeState(player.stanceState);
     }
 }
