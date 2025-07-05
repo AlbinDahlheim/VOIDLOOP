@@ -16,6 +16,7 @@ public class PlayerSheathed : PlayerState
     private bool isIdle;
 
     private float animationPoint;
+    private int stepCount;
 
     public override void OnValidate(PlayerBehavior player)
     {
@@ -27,6 +28,7 @@ public class PlayerSheathed : PlayerState
         previousDirection = player.facingDirection;
         timeSincePreviousDirection = 0.0f;
         animationPoint = 0.0f;
+        stepCount = 0;
     }
 
     public override void Update()
@@ -71,10 +73,30 @@ public class PlayerSheathed : PlayerState
         if (animationPoint >= 1.0f)
             animationPoint -= 1.0f;
 
-        Vector2 runVelocity = player.LeftStickInput.normalized * movementSpeed;
+        UpdateFootstep(animationPoint);
+
+            Vector2 runVelocity = player.LeftStickInput.normalized * movementSpeed;
         player.movementForce = runVelocity;
 
         player.animator.Play($"RUN_{player.GetDirectionName()}_SHEATHED", 0, animationPoint);
+    }
+
+    private void UpdateFootstep(float animationPoint)
+    {
+        if (animationPoint > 0.0f && animationPoint < 0.5f && stepCount % 2 == 0)
+            Footstep();
+        else if (animationPoint > 0.5f && stepCount % 2 == 1)
+            Footstep();
+    }
+
+    private void Footstep()
+    {
+        // play a sound
+
+        if (stepCount > 0)
+            player.SpawnDustCloud();
+
+        stepCount++;
     }
 
     private void ChangeDirection(PlayerBehavior.Direction currentDirection)
@@ -95,6 +117,7 @@ public class PlayerSheathed : PlayerState
     private void EnteredIdle()
     {
         animationPoint = 0.0f;
+        stepCount = 0;
 
         CorrectDirection();
     }

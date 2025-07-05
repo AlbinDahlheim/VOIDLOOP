@@ -31,6 +31,8 @@ public class PlayerBehavior : MonoBehaviour
     public Rigidbody2D rb2d;
     public AudioSource audioSource;
 
+    public GameObject dustCloud;
+
     public Color defaultBodyColor;
     public Color defaultSwordColor;
     public Color defaultEyeColor;
@@ -141,6 +143,12 @@ public class PlayerBehavior : MonoBehaviour
         directionName = directionName.Replace("LEFT", "SIDE");
 
         return directionName;
+    }
+
+    public void SpawnDustCloud()
+    {
+        Vector3 offset = Vector2.up * -0.5f;
+        Instantiate(dustCloud, transform.position + offset, transform.rotation);
     }
 
     public void PaletteSwap(Color outlineColor, Color? bodyColor = null, Color? swordColor = null, Color? eyeColor = null)

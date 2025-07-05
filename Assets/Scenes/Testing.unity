@@ -157,6 +157,7 @@ MonoBehaviour:
   shadowRenderer: {fileID: 2092402330}
   rb2d: {fileID: 661726494}
   audioSource: {fileID: 1990503529}
+  dustCloud: {fileID: 4642868516888724143, guid: 00f3957c5dedf1e47a9ba9c9dfefc01b, type: 3}
   defaultBodyColor: {r: 0, g: 0, b: 0, a: 1}
   defaultSwordColor: {r: 0.97647065, g: 0.9686275, b: 0.8705883, a: 1}
   defaultEyeColor: {r: 0.97647065, g: 0.9686275, b: 0.8705883, a: 1}
@@ -170,6 +171,7 @@ MonoBehaviour:
   stanceState:
     player: {fileID: 661726492}
     releaseDuration: 0.6
+    finalFrameDuration: 0.05
 --- !u!4 &661726493
 Transform:
   m_ObjectHideFlags: 0

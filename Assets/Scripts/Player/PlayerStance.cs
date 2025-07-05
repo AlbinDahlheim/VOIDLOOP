@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerStance : PlayerState
 {
     public float releaseDuration;
+    public float finalFrameDuration;
+
     private float timeSpentReleasing;
     private bool holding;
 
@@ -55,8 +57,6 @@ public class PlayerStance : PlayerState
 
     private void UpdateHolding()
     {
-        timeSpentReleasing = 0.0f;
-
         if (player.LeftStickInput == Vector2.zero)
         {
             player.animator.Play("STANCE_NEUTRAL");
@@ -75,7 +75,6 @@ public class PlayerStance : PlayerState
         timeSpentReleasing += Time.deltaTime;
 
         player.facingDirection = initialDirection;
-        float finalFrameDuration = 0.05f;
 
         if (timeSpentReleasing >= releaseDuration - finalFrameDuration)
         {
@@ -140,6 +139,11 @@ public class PlayerStance : PlayerState
         player.facingDirection = currentDirection;
     }
 
+    private void ParseInputBuffer()
+    {
+        // LEFT > RIGHT > UP > DOWN
+    }
+
     public override void SwordInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -148,6 +152,7 @@ public class PlayerStance : PlayerState
         if (context.canceled)
         {
             // some big fucked up chain here depending on if a move combo has been performed
+            timeSpentReleasing = releaseDuration - finalFrameDuration;
             holding = false;
         }
     }
