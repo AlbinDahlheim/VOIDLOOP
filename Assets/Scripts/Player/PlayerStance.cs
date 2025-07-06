@@ -1,4 +1,5 @@
-using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerStance : PlayerState
 {
+    private enum BufferEntry
+    {
+        UP,
+        UP_RIGHT,
+        RIGHT,
+        DOWN_RIGHT,
+        DOWN,
+        DOWN_LEFT,
+        LEFT,
+        UP_LEFT,
+        NEUTRAL,
+        SHEATHE,
+        UNSHEATHE
+    }
+    private List<BufferEntry> bufferList;
+
+    private const int MAX_BUFFER_SIZE = 32;
+
     public float releaseDuration;
     public float finalFrameDuration;
 
@@ -28,6 +47,9 @@ public class PlayerStance : PlayerState
 
         initialDirection = player.facingDirection;
         previousSpriteFlipX = player.spriteRenderer.flipX;
+
+        bufferList = new();
+        AddEntryToBuffer(BufferEntry.SHEATHE);
     }
 
     public override void Update()
@@ -39,7 +61,15 @@ public class PlayerStance : PlayerState
         }
         else
             UpdateReleasing();
-        
+
+
+        StringBuilder sb = new();
+        foreach(BufferEntry entry in ParsedBuffer())
+        {
+            sb.Append($"{entry.ToString()}, ");
+        }
+
+        Debug.Log(sb);
     }
 
     private void UpdateFlip()
@@ -60,12 +90,16 @@ public class PlayerStance : PlayerState
         if (player.LeftStickInput == Vector2.zero)
         {
             player.animator.Play("STANCE_NEUTRAL");
+            if (!CurrentEntryMatches(BufferEntry.NEUTRAL))
+                AddEntryToBuffer(BufferEntry.NEUTRAL);
             return;
         }
 
         PlayerBehavior.Direction currentDirection = player.GetDirectionOfVector(player.LeftStickInput);
-        if (player.facingDirection != currentDirection)
-            ChangeDirection(currentDirection);
+        player.facingDirection = currentDirection;
+
+        if (!CurrentEntryMatches((BufferEntry)currentDirection))
+            AddEntryToBuffer((BufferEntry)currentDirection);
 
         player.animator.Play($"STANCE_{player.GetDirectionName()}");
     }
@@ -133,26 +167,129 @@ public class PlayerStance : PlayerState
             player.ChangeState(player.sheathedState);
     }
 
-    private void ChangeDirection(PlayerBehavior.Direction currentDirection)
+    private void AddEntryToBuffer(BufferEntry entry)
     {
-        //previousDirection = player.facingDirection;
-        player.facingDirection = currentDirection;
+        if (bufferList.Count >= MAX_BUFFER_SIZE)
+            bufferList.RemoveAt(0);
+
+        bufferList.Add(entry);
     }
 
-    private void ParseInputBuffer()
+    private List<BufferEntry> ParsedBuffer()
     {
         // LEFT > RIGHT > UP > DOWN
+
+        // NEUTRAL gets cleared, diagonal gets cleared if not preceeded by neutral
+
+        List<BufferEntry> parsedBuffer = new List<BufferEntry>(bufferList);
+
+        // Clear diagonals not preceeded by NEUTRAL and replace all other diagonals with LEFT/RIGHT
+        // Clear cardinal directions preceeded by a diagonal which in itself is preceeded by the previous cardinal direction
+        // (or NEUTRAL if the previous cardinal direction was LEFT/RIGHT)
+        for (int i = parsedBuffer.Count - 1; i > 0; i--)
+        {
+            if ((int)parsedBuffer[i] > 7) // Entry is out of bounds to be a direction
+                continue;
+
+            if ((int)parsedBuffer[i] % 2 == 1) // Entry is a diagonal direction
+            {
+                if (parsedBuffer[i - 1] == BufferEntry.NEUTRAL)
+                {
+                    if (parsedBuffer[i] == BufferEntry.UP_RIGHT || parsedBuffer[i] == BufferEntry.DOWN_RIGHT)
+                        parsedBuffer[i] = BufferEntry.RIGHT;
+                    else
+                        parsedBuffer[i] = BufferEntry.LEFT;
+                    continue;
+                }
+
+                parsedBuffer.RemoveAt(i);
+            }
+            else // Entry is a cardinal direction
+            {
+                if (i <= 1)
+                    continue;
+
+                if ((int)parsedBuffer[i - 1] % 2 == 0)
+                    continue;
+
+                if (parsedBuffer[i - 2] == parsedBuffer[i])
+                {
+                    parsedBuffer.RemoveAt(i);
+                    continue;
+                }
+
+                if (parsedBuffer[i - 2] == BufferEntry.NEUTRAL && (parsedBuffer[i] == BufferEntry.LEFT || parsedBuffer[i] == BufferEntry.RIGHT))
+                    parsedBuffer.RemoveAt(i);
+            }
+        }
+
+        // Clear all NEUTRAL
+        for (int i = parsedBuffer.Count - 1; i >= 0; i--)
+        {
+            if (parsedBuffer[i] == BufferEntry.NEUTRAL)
+            {
+                parsedBuffer.RemoveAt(i);
+                continue;
+            }
+        }
+
+        // Convert diagonal at first position if it exists
+        if ((int)parsedBuffer[0] <= 7 && (int)parsedBuffer[0] % 2 == 1)
+        {
+            if (parsedBuffer[0] == BufferEntry.UP_RIGHT || parsedBuffer[0] == BufferEntry.DOWN_RIGHT)
+                parsedBuffer[0] = BufferEntry.RIGHT;
+            else
+                parsedBuffer[0] = BufferEntry.LEFT;
+        }
+
+        return parsedBuffer;
+    }
+
+    private bool BufferMatches(List<BufferEntry> technique)
+    {
+        // Buffer is too short
+        if (technique.Count > ParsedBuffer().Count)
+            return false;
+
+        int startIndex = ParsedBuffer().Count - technique.Count;
+        for (int i = 0; i < technique.Count; i++)
+        {
+            // Buffer does not match technique
+            if (ParsedBuffer()[i + startIndex] != technique[i])
+                return false;
+        }
+        // Buffer matches technique
+        return true;
+    }
+
+    private bool CurrentEntryMatches(BufferEntry entry)
+    {
+        return bufferList[bufferList.Count - 1] == entry;
     }
 
     public override void SwordInput(InputAction.CallbackContext context)
     {
         if (context.performed)
+        {
+            AddEntryToBuffer(BufferEntry.SHEATHE);
+
             holding = true;
+        }
 
         if (context.canceled)
         {
             // some big fucked up chain here depending on if a move combo has been performed
-            timeSpentReleasing = releaseDuration - finalFrameDuration;
+            if (BufferMatches(new List<BufferEntry> { BufferEntry.SHEATHE }))
+            {
+                timeSpentReleasing = 0.0f;
+            }
+            else
+            {
+                timeSpentReleasing = releaseDuration - finalFrameDuration;
+            }
+
+            AddEntryToBuffer(BufferEntry.UNSHEATHE);
+
             holding = false;
         }
     }
