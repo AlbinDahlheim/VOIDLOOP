@@ -24,10 +24,12 @@ public class PlayerStance : PlayerState
     private List<BufferEntry> bufferList;
 
     private const int MAX_BUFFER_SIZE = 32;
+    private const float NEUTRAL_MAGNITUDE_WINDOW = 0.1f;
 
     public float releaseDuration;
     public float finalFrameDuration;
 
+    private float maxMagnitude;
     private float timeSpentReleasing;
     private bool holding;
 
@@ -42,6 +44,7 @@ public class PlayerStance : PlayerState
     public override void Enter()
     {
         player.movementForce = Vector2.zero;
+        maxMagnitude = 0.0f;
         timeSpentReleasing = 0.0f;
         holding = true;
 
@@ -89,14 +92,36 @@ public class PlayerStance : PlayerState
     {
         if (player.LeftStickInput == Vector2.zero)
         {
+            maxMagnitude = 0.0f;
             player.animator.Play("STANCE_NEUTRAL");
             if (!CurrentEntryMatches(BufferEntry.NEUTRAL))
                 AddEntryToBuffer(BufferEntry.NEUTRAL);
             return;
         }
 
+        // If a direction is held, the requirements for reaching NEUTRAL become less strict
+        // depending on the current magnitude of the stick, allowing for easier same-direction flicking.
+        // An example: The current held direction is RIGHT, and the magnitude is 0.9f.
+        // If the direction never changes from RIGHT and the magnitude is lowered to 0.8f, the current direction is changed to neutral.
+        // If any direction other than RIGHT is held afterwards, the regular rules apply.
+        // However, if RIGHT is the next target direction, and the magnitude never goes below the deadzone (meaning it reaches zero),
+        // you would need to have a magnitude above 0.8f to change the direction back to RIGHT.
+        float currentMagnitude = player.LeftStickInput.magnitude;
+        maxMagnitude = maxMagnitude < currentMagnitude ? currentMagnitude : maxMagnitude;
+
         PlayerBehavior.Direction currentDirection = player.GetDirectionOfVector(player.LeftStickInput);
+        if (currentDirection != player.facingDirection)
+            maxMagnitude = 0.0f;
+
         player.facingDirection = currentDirection;
+
+        if (currentMagnitude < maxMagnitude - NEUTRAL_MAGNITUDE_WINDOW)
+        {
+            player.animator.Play("STANCE_NEUTRAL");
+            if (!CurrentEntryMatches(BufferEntry.NEUTRAL))
+                AddEntryToBuffer(BufferEntry.NEUTRAL);
+            return;
+        }
 
         if (!CurrentEntryMatches((BufferEntry)currentDirection))
             AddEntryToBuffer((BufferEntry)currentDirection);
@@ -177,10 +202,6 @@ public class PlayerStance : PlayerState
 
     private List<BufferEntry> ParsedBuffer()
     {
-        // LEFT > RIGHT > UP > DOWN
-
-        // NEUTRAL gets cleared, diagonal gets cleared if not preceeded by neutral
-
         List<BufferEntry> parsedBuffer = new List<BufferEntry>(bufferList);
 
         // Clear diagonals not preceeded by NEUTRAL and replace all other diagonals with LEFT/RIGHT
