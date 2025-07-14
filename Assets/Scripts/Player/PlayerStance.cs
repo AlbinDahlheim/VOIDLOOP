@@ -214,7 +214,7 @@ public class PlayerStance : PlayerState
 
             if ((int)parsedBuffer[i] % 2 == 1) // Entry is a diagonal direction
             {
-                if (parsedBuffer[i - 1] == BufferEntry.NEUTRAL)
+                if (parsedBuffer[i - 1] == BufferEntry.NEUTRAL || parsedBuffer[i - 1] == BufferEntry.SHEATHE)
                 {
                     if (parsedBuffer[i] == BufferEntry.UP_RIGHT || parsedBuffer[i] == BufferEntry.DOWN_RIGHT)
                         parsedBuffer[i] = BufferEntry.RIGHT;
@@ -304,12 +304,16 @@ public class PlayerStance : PlayerState
             {
                 timeSpentReleasing = 0.0f;
             }
+            else if (player.LeftStickInput != Vector2.zero) // DOES NOT WORK WITH STICK FLICK IMPROVEMENT
+            {
+                player.ChangeState(player.unsheathedState);
+            }
             else
             {
                 timeSpentReleasing = releaseDuration - finalFrameDuration;
             }
 
-            AddEntryToBuffer(BufferEntry.UNSHEATHE);
+                AddEntryToBuffer(BufferEntry.UNSHEATHE);
 
             holding = false;
         }
