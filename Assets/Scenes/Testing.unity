@@ -155,6 +155,7 @@ MonoBehaviour:
   animator: {fileID: 1789103595}
   spriteRenderer: {fileID: 1789103593}
   shadowRenderer: {fileID: 2092402330}
+  auraRenderer: {fileID: 1874895820}
   rb2d: {fileID: 661726494}
   audioSource: {fileID: 1990503529}
   dustCloud: {fileID: 4642868516888724143, guid: 00f3957c5dedf1e47a9ba9c9dfefc01b, type: 3}
@@ -704,9 +705,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 7
+  m_SortingOrder: 8
   m_Sprite: {fileID: -2517176544526117094, guid: b60c521875a3b7541b215a5465ddfdc2, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -28,6 +28,7 @@ public class PlayerBehavior : MonoBehaviour
     public Animator animator;
     public SpriteRenderer spriteRenderer;
     public SpriteRenderer shadowRenderer;
+    public SpriteRenderer auraRenderer;
     public Rigidbody2D rb2d;
     public AudioSource audioSource;
 
@@ -160,5 +161,7 @@ public class PlayerBehavior : MonoBehaviour
 
         Color shadowColor = Color.Lerp(outlineColor, Color.black, 0.75f);
         shadowRenderer.material.SetColor("_TargetColor", shadowColor);
+
+        auraRenderer.color = new Color(outlineColor.r, outlineColor.g, outlineColor.b, auraRenderer.color.a);
     }
 }
