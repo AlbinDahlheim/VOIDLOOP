@@ -17,6 +17,7 @@ public class PlayerUnsheathed : PlayerState
 
     private float animationPoint;
     private bool usingLeftHand;
+    private bool storedFlip;
     private int stepCount;
 
     public override void OnValidate(PlayerBehavior player)
@@ -30,11 +31,18 @@ public class PlayerUnsheathed : PlayerState
         timeSincePreviousDirection = 0.0f;
         animationPoint = 0.0f;
         usingLeftHand = player.spriteRenderer.flipX;
+        storedFlip = usingLeftHand;
         stepCount = 0;
     }
 
+    public override void Exit()
+    {
+        player.spriteRenderer.flipX = storedFlip;
+    }
     public override void Update()
     {
+        UpdateStoredFlip();
+
         if (player.LeftStickInput != Vector2.zero)
         {
             UpdateRunning();
@@ -48,6 +56,17 @@ public class PlayerUnsheathed : PlayerState
             UpdateIdle();
             isIdle = true;
         }
+    }
+
+    private void UpdateStoredFlip()
+    {
+        if (player.facingDirection == PlayerBehavior.Direction.UP || player.facingDirection == PlayerBehavior.Direction.DOWN)
+            return;
+
+        if (player.LeftStickInput.x > 0.0f)
+            storedFlip = true;
+        else if (player.LeftStickInput.x < 0.0f)
+            storedFlip = false;
     }
 
     private void UpdateRunning()
