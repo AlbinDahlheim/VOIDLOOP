@@ -13,6 +13,7 @@ public class PlayerSheathed : PlayerState
     private PlayerBehavior.Direction previousDirection;
 
     private float timeSincePreviousDirection;
+    private float timeSpentRunning;
     private bool isIdle;
 
     private float animationPoint;
@@ -26,7 +27,8 @@ public class PlayerSheathed : PlayerState
     public override void Enter()
     {
         previousDirection = player.facingDirection;
-        timeSincePreviousDirection = 0.0f;
+        timeSincePreviousDirection = 0.0f; // Could this cause issues?
+        timeSpentRunning = 0.0f;
         animationPoint = 0.0f;
         stepCount = 0;
     }
@@ -37,6 +39,9 @@ public class PlayerSheathed : PlayerState
 
         if (player.LeftStickInput != Vector2.zero)
         {
+            if (isIdle)
+                EnteredRunning();
+
             UpdateRunning();
             isIdle = false;
         }
@@ -61,6 +66,11 @@ public class PlayerSheathed : PlayerState
             player.spriteRenderer.flipX = false;
     }
 
+    private void EnteredRunning()
+    {
+        timeSpentRunning = 0.0f;
+    }
+
     private void UpdateRunning()
     {
         PlayerBehavior.Direction currentDirection = player.GetDirectionOfVector(player.LeftStickInput);
@@ -69,6 +79,7 @@ public class PlayerSheathed : PlayerState
 
         animationPoint += Time.deltaTime * RUN_ANIMATION_SPEED * 2.0f; // 6 frames, 12 fps
         timeSincePreviousDirection += Time.deltaTime;
+        timeSpentRunning += Time.deltaTime;
 
         if (animationPoint >= 1.0f)
             animationPoint -= 1.0f;
@@ -107,13 +118,6 @@ public class PlayerSheathed : PlayerState
         timeSincePreviousDirection = 0.0f;
     }
 
-    private void UpdateIdle()
-    {
-        player.movementForce = Vector2.zero;
-
-        player.animator.Play($"IDLE_{player.GetDirectionName()}_SHEATHED");
-    }
-
     private void EnteredIdle()
     {
         animationPoint = 0.0f;
@@ -122,17 +126,27 @@ public class PlayerSheathed : PlayerState
         CorrectDirection();
     }
 
+    private void UpdateIdle()
+    {
+        player.movementForce = Vector2.zero;
+
+        player.animator.Play($"IDLE_{player.GetDirectionName()}_SHEATHED");
+    }
+
     private void CorrectDirection()
     {
         int currentDirectionValue = (int)player.facingDirection;
         int previousDirectionValue = (int)previousDirection;
 
-        if (!IsCurrentNextToPrevious(currentDirectionValue, previousDirectionValue))
-            return;
-
         float maxTimePassedAllowed = 0.03f;
 
         if (timeSincePreviousDirection > maxTimePassedAllowed)
+            return;
+
+        if (timeSpentRunning <= maxTimePassedAllowed)
+            return;
+
+        if (!IsCurrentNextToPrevious(currentDirectionValue, previousDirectionValue))
             return;
 
         // Odd = diagonal direction

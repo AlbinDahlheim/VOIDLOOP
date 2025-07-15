@@ -72,7 +72,7 @@ public class PlayerStance : PlayerState
             sb.Append($"{entry.ToString()}, ");
         }
 
-        Debug.Log(sb);
+        //Debug.Log(sb);
     }
 
     private void UpdateFlip()
@@ -288,6 +288,11 @@ public class PlayerStance : PlayerState
         return bufferList[bufferList.Count - 1] == entry;
     }
 
+    private bool CurrentEntryIsDirection()
+    {
+        return (int)bufferList[bufferList.Count - 1] < 8;
+    }
+
     public override void SwordInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -304,7 +309,7 @@ public class PlayerStance : PlayerState
             {
                 timeSpentReleasing = 0.0f;
             }
-            else if (player.LeftStickInput != Vector2.zero) // DOES NOT WORK WITH STICK FLICK IMPROVEMENT
+            else if (CurrentEntryIsDirection()) // Sword slashes
             {
                 player.ChangeState(player.unsheathedState);
             }
@@ -313,7 +318,7 @@ public class PlayerStance : PlayerState
                 timeSpentReleasing = releaseDuration - finalFrameDuration;
             }
 
-                AddEntryToBuffer(BufferEntry.UNSHEATHE);
+            AddEntryToBuffer(BufferEntry.UNSHEATHE);
 
             holding = false;
         }
