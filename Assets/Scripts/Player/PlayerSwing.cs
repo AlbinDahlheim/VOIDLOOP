@@ -53,13 +53,24 @@ public class PlayerSwing : PlayerState
     {
         Vector2 direction = leftStickInput.normalized;
 
+        if (direction.x > 0.0f)
+            player.spriteRenderer.flipX = true;
+        else if (direction.x < 0.0f)
+            player.spriteRenderer.flipX = false;
+
         int angle = Mathf.RoundToInt(Vector2.SignedAngle(Vector2.up, direction));
         angle = angle <= 0 ? angle * -1 : 360 - angle;
         int offset = angle == 45 || angle == 225 ? 46 : 44; // All diagonals on keyboard should result in SIDE
         int angleValue = (angle + offset) / 90 % 4;
         angleValue += angleValue; // Lock to cardinal directions
 
-        Debug.Log($"angle: {angle}, value: {angleValue}");
+        if (direction.y > 0.0f)
+        {
+            if (angleValue == 2)
+                angleValue = 1;
+            else if (angleValue == 6)
+                angleValue = 7;
+        }
 
         player.facingDirection = (PlayerBehavior.Direction)angleValue;
     }
@@ -67,10 +78,9 @@ public class PlayerSwing : PlayerState
     private void SetAnimation()
     {
         string direction = player.GetDirectionName();
-        direction = direction.Replace("UP_", "");
         direction = direction.Replace("DOWN_", "");
 
-        if (direction == "SIDE")
+        if (direction == "UP" || direction == "SIDE")
             player.unsheathedState.swapHandednesLogic = true;
 
         player.animator.Play($"SWORD_SWING_{direction}");

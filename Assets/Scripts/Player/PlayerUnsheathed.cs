@@ -35,7 +35,7 @@ public class PlayerUnsheathed : PlayerState
         timeSpentRunning = 0.0f;
         animationPoint = 0.0f;
         usingLeftHand = swapHandednesLogic ? !player.spriteRenderer.flipX : player.spriteRenderer.flipX;
-        storedFlip = usingLeftHand;
+        storedFlip = swapHandednesLogic ? !usingLeftHand : usingLeftHand;
         stepCount = 0;
     }
 

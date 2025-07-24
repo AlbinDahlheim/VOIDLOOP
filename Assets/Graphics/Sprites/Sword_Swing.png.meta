@@ -173,7 +173,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 356
+        y: 498
         width: 70
         height: 70
       alignment: 0
@@ -195,7 +195,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 72
-        y: 356
+        y: 498
         width: 70
         height: 70
       alignment: 0
@@ -217,7 +217,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 143
-        y: 356
+        y: 498
         width: 70
         height: 70
       alignment: 0
@@ -239,7 +239,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 214
-        y: 356
+        y: 498
         width: 70
         height: 70
       alignment: 0
@@ -261,7 +261,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 285
+        y: 427
         width: 70
         height: 70
       alignment: 0
@@ -283,7 +283,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 72
-        y: 285
+        y: 427
         width: 70
         height: 70
       alignment: 0
@@ -305,7 +305,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 143
-        y: 285
+        y: 427
         width: 70
         height: 70
       alignment: 0
@@ -327,7 +327,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 214
-        y: 285
+        y: 427
         width: 70
         height: 70
       alignment: 0
@@ -349,7 +349,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 214
+        y: 356
         width: 70
         height: 70
       alignment: 0
@@ -371,7 +371,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 72
-        y: 214
+        y: 356
         width: 70
         height: 70
       alignment: 0
@@ -393,7 +393,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 143
-        y: 214
+        y: 356
         width: 70
         height: 70
       alignment: 0
@@ -415,7 +415,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 214
-        y: 214
+        y: 356
         width: 70
         height: 70
       alignment: 0
@@ -437,7 +437,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 143
+        y: 285
         width: 70
         height: 70
       alignment: 0
@@ -459,7 +459,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 72
-        y: 143
+        y: 285
         width: 70
         height: 70
       alignment: 0
@@ -481,7 +481,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 143
-        y: 143
+        y: 285
         width: 70
         height: 70
       alignment: 0
@@ -503,7 +503,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 214
-        y: 143
+        y: 285
         width: 70
         height: 70
       alignment: 0
@@ -525,7 +525,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 72
+        y: 214
         width: 70
         height: 70
       alignment: 0
@@ -547,7 +547,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 72
-        y: 72
+        y: 214
         width: 70
         height: 70
       alignment: 0
@@ -569,7 +569,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 143
-        y: 72
+        y: 214
         width: 70
         height: 70
       alignment: 0
@@ -591,7 +591,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 214
-        y: 72
+        y: 214
         width: 70
         height: 70
       alignment: 0
@@ -613,7 +613,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 1
+        y: 143
         width: 70
         height: 70
       alignment: 0
@@ -635,7 +635,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 72
-        y: 1
+        y: 143
         width: 70
         height: 70
       alignment: 0
@@ -657,7 +657,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 143
-        y: 1
+        y: 143
         width: 70
         height: 70
       alignment: 0
@@ -679,7 +679,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 214
-        y: 1
+        y: 143
         width: 70
         height: 70
       alignment: 0
@@ -692,6 +692,182 @@ TextureImporter:
       bones: []
       spriteID: ecc82c63cb57e7700800000000000000
       internalID: 539998456564059342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_24
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 72
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca3383d8f2d1aad42987f73ec4d355c7
+      internalID: -1937245459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_25
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 72
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5364171cb745924384a889bed45d0b4
+      internalID: 537821839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_26
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 72
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f037d6b8ba225634eae69174da03e8f8
+      internalID: -2129373309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_27
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 72
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e7471752319e7a409feebe45131034d
+      internalID: 1485321652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_28
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7163a69a63b05134da1cb8fa4df3670f
+      internalID: -1000967408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_29
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 1
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 597ed25369eeb744d9d3b274d626297f
+      internalID: -427335325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_30
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 1
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f82987bc66d199a4b84e24e083f30110
+      internalID: -323343782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_31
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 1
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7866b3492e650434681594e5e69152e9
+      internalID: -1029141783
       vertices: []
       indices: 
       edges: []
@@ -729,7 +905,15 @@ TextureImporter:
       Sword_Swing_21: 5594298602643752494
       Sword_Swing_22: -402630200897212174
       Sword_Swing_23: 539998456564059342
+      Sword_Swing_24: -1937245459
+      Sword_Swing_25: 537821839
+      Sword_Swing_26: -2129373309
+      Sword_Swing_27: 1485321652
+      Sword_Swing_28: -1000967408
+      Sword_Swing_29: -427335325
       Sword_Swing_3: 4704105118502325781
+      Sword_Swing_30: -323343782
+      Sword_Swing_31: -1029141783
       Sword_Swing_4: -1602663645383063062
       Sword_Swing_5: 8593562688880855463
       Sword_Swing_6: -1476676164583518846
