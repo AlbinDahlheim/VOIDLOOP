@@ -311,7 +311,7 @@ public class PlayerStance : PlayerState
             }
             else if (CurrentEntryIsDirection()) // Sword slashes
             {
-                player.ChangeState(player.unsheathedState);
+                player.ChangeState(player.swingState);
             }
             else
             {

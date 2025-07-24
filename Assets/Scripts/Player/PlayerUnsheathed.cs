@@ -16,6 +16,8 @@ public class PlayerUnsheathed : PlayerState
     private float timeSpentRunning;
     private bool isIdle;
 
+    [HideInInspector] public bool swapHandednesLogic;
+
     private float animationPoint;
     private bool usingLeftHand;
     private bool storedFlip;
@@ -32,7 +34,7 @@ public class PlayerUnsheathed : PlayerState
         timeSincePreviousDirection = 0.0f;
         timeSpentRunning = 0.0f;
         animationPoint = 0.0f;
-        usingLeftHand = player.spriteRenderer.flipX;
+        usingLeftHand = swapHandednesLogic ? !player.spriteRenderer.flipX : player.spriteRenderer.flipX;
         storedFlip = usingLeftHand;
         stepCount = 0;
     }
@@ -173,6 +175,11 @@ public class PlayerUnsheathed : PlayerState
 
     private string GetHandCorrectedDirection(string direction)
     {
+        if (swapHandednesLogic)
+        {
+            player.spriteRenderer.flipX = !player.spriteRenderer.flipX;
+            swapHandednesLogic = false;
+        }
         if (!usingLeftHand)
             return direction;
 

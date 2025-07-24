@@ -1,0 +1,743 @@
+fileFormatVersion: 2
+guid: 316d3d05bc418e14aae2d4ab9756c1ca
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1246499632888304808
+    second: Sword_Swing_0
+  - first:
+      213: -3254238131877536120
+    second: Sword_Swing_1
+  - first:
+      213: 2637616697896968366
+    second: Sword_Swing_2
+  - first:
+      213: 4704105118502325781
+    second: Sword_Swing_3
+  - first:
+      213: -1602663645383063062
+    second: Sword_Swing_4
+  - first:
+      213: 8593562688880855463
+    second: Sword_Swing_5
+  - first:
+      213: -1476676164583518846
+    second: Sword_Swing_6
+  - first:
+      213: -4393306159658649108
+    second: Sword_Swing_7
+  - first:
+      213: 9096389423113088405
+    second: Sword_Swing_8
+  - first:
+      213: -5986753690871160361
+    second: Sword_Swing_9
+  - first:
+      213: 2868970937793050924
+    second: Sword_Swing_10
+  - first:
+      213: 4213270448764545271
+    second: Sword_Swing_11
+  - first:
+      213: 5460191115061996348
+    second: Sword_Swing_12
+  - first:
+      213: 304445832275621822
+    second: Sword_Swing_13
+  - first:
+      213: -652139530817201113
+    second: Sword_Swing_14
+  - first:
+      213: -1551902803704970384
+    second: Sword_Swing_15
+  - first:
+      213: -8649829085498847690
+    second: Sword_Swing_16
+  - first:
+      213: 5337974019468114233
+    second: Sword_Swing_17
+  - first:
+      213: 4166540353117738841
+    second: Sword_Swing_18
+  - first:
+      213: 8847185455463402758
+    second: Sword_Swing_19
+  - first:
+      213: 7408660799674171878
+    second: Sword_Swing_20
+  - first:
+      213: 5594298602643752494
+    second: Sword_Swing_21
+  - first:
+      213: -402630200897212174
+    second: Sword_Swing_22
+  - first:
+      213: 539998456564059342
+    second: Sword_Swing_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sword_Swing_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 356
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a456f6dfc47c4110800000000000000
+      internalID: 1246499632888304808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_1
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 356
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88e98e629af96d2d0800000000000000
+      internalID: -3254238131877536120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_2
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 356
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea0a9cb7962ba9420800000000000000
+      internalID: 2637616697896968366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_3
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 356
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51e8d6e8ea6584140800000000000000
+      internalID: 4704105118502325781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 285
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae98282e7e132c9e0800000000000000
+      internalID: -1602663645383063062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_5
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 285
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a94bc12cb7724770800000000000000
+      internalID: 8593562688880855463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_6
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 285
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28d86b12adac18be0800000000000000
+      internalID: -1476676164583518846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_7
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 285
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce9b2041357d703c0800000000000000
+      internalID: -4393306159658649108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_8
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 214
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59da64f4cfddc3e70800000000000000
+      internalID: 9096389423113088405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_9
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 214
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d1add1cc37caeca0800000000000000
+      internalID: -5986753690871160361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_10
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 214
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c29f2121ed1a0d720800000000000000
+      internalID: 2868970937793050924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_11
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 214
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f8e249762b887a30800000000000000
+      internalID: 4213270448764545271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 143
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3ba30bc3ee76cb40800000000000000
+      internalID: 5460191115061996348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_13
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 143
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb7f2261fdb993400800000000000000
+      internalID: 304445832275621822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_14
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 143
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72c96a94d8223f6f0800000000000000
+      internalID: -652139530817201113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_15
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 143
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0738b335f98867ae0800000000000000
+      internalID: -1551902803704970384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_16
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 72
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63ecff68642a5f780800000000000000
+      internalID: -8649829085498847690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_17
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 72
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93939a2c61b441a40800000000000000
+      internalID: 5337974019468114233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_18
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 72
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 957d9e9306682d930800000000000000
+      internalID: 4166540353117738841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_19
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 72
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60d06ee1c4487ca70800000000000000
+      internalID: 8847185455463402758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_20
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e1c0f99eb9d0d660800000000000000
+      internalID: 7408660799674171878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_21
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 1
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e268b0270f0f2ad40800000000000000
+      internalID: 5594298602643752494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_22
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 1
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f07dab27f1996af0800000000000000
+      internalID: -402630200897212174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sword_Swing_23
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 1
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecc82c63cb57e7700800000000000000
+      internalID: 539998456564059342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f1fbdba62e5f59941b7eb4efc2318536
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Sword_Swing_0: 1246499632888304808
+      Sword_Swing_1: -3254238131877536120
+      Sword_Swing_10: 2868970937793050924
+      Sword_Swing_11: 4213270448764545271
+      Sword_Swing_12: 5460191115061996348
+      Sword_Swing_13: 304445832275621822
+      Sword_Swing_14: -652139530817201113
+      Sword_Swing_15: -1551902803704970384
+      Sword_Swing_16: -8649829085498847690
+      Sword_Swing_17: 5337974019468114233
+      Sword_Swing_18: 4166540353117738841
+      Sword_Swing_19: 8847185455463402758
+      Sword_Swing_2: 2637616697896968366
+      Sword_Swing_20: 7408660799674171878
+      Sword_Swing_21: 5594298602643752494
+      Sword_Swing_22: -402630200897212174
+      Sword_Swing_23: 539998456564059342
+      Sword_Swing_3: 4704105118502325781
+      Sword_Swing_4: -1602663645383063062
+      Sword_Swing_5: 8593562688880855463
+      Sword_Swing_6: -1476676164583518846
+      Sword_Swing_7: -4393306159658649108
+      Sword_Swing_8: 9096389423113088405
+      Sword_Swing_9: -5986753690871160361
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

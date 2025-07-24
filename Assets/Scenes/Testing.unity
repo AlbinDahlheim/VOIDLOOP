@@ -163,17 +163,22 @@ MonoBehaviour:
   defaultSwordColor: {r: 0.97647065, g: 0.9686275, b: 0.8705883, a: 1}
   defaultEyeColor: {r: 0.97647065, g: 0.9686275, b: 0.8705883, a: 1}
   movementForce: {x: 0, y: 0}
-  externalForce: {x: 0, y: 0}
   sheathedState:
     player: {fileID: 661726492}
     movementSpeed: 5
   unsheathedState:
     player: {fileID: 661726492}
     movementSpeed: 6
+    swapHandednesLogic: 0
   stanceState:
     player: {fileID: 661726492}
     releaseDuration: 0.6
     finalFrameDuration: 0.05
+  swingState:
+    player: {fileID: 661726492}
+    duration: 0.6
+    movementForce: 5
+    decreasePerSecond: 15
 --- !u!4 &661726493
 Transform:
   m_ObjectHideFlags: 0

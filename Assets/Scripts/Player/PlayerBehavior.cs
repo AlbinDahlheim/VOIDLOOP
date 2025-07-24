@@ -42,11 +42,18 @@ public class PlayerBehavior : MonoBehaviour
     private Vector2 leftStickInput;
 
     [HideInInspector] public Vector2 movementForce;
-    [HideInInspector] public Vector2 externalForce;
+    public Vector2 InternalForce => internalForce;
+    private Vector2 internalForce;
+    public Vector2 ExternalForce => externalForce;
+    private Vector2 externalForce;
+
+    private float internalDecreaseIntensity;
+    private float externalDecreaseIntensity;
 
     public PlayerSheathed sheathedState = new PlayerSheathed();
     public PlayerUnsheathed unsheathedState = new PlayerUnsheathed();
     public PlayerStance stanceState = new PlayerStance();
+    public PlayerSwing swingState = new PlayerSwing();
 
     public PlayerState PreviousState => previousState;
     private PlayerState previousState;
@@ -57,6 +64,7 @@ public class PlayerBehavior : MonoBehaviour
         sheathedState.OnValidate(this);
         unsheathedState.OnValidate(this);
         stanceState.OnValidate(this);
+        swingState.OnValidate(this);
     }
 
     private void Awake()
@@ -114,7 +122,14 @@ public class PlayerBehavior : MonoBehaviour
 
     private void UpdatePhysics()
     {
-        rb2d.linearVelocity = movementForce + externalForce;
+        if (movementForce.sqrMagnitude >= internalForce.sqrMagnitude)
+            rb2d.linearVelocity = movementForce + externalForce;
+        else
+            rb2d.linearVelocity = movementForce + internalForce + externalForce;
+
+        internalForce -= internalForce.normalized * internalDecreaseIntensity * Time.deltaTime;
+        if (internalForce.sqrMagnitude < 0.01f)
+            internalForce = Vector2.zero;
     }
 
     public void ChangeState(PlayerState targetState)
@@ -125,15 +140,44 @@ public class PlayerBehavior : MonoBehaviour
         currentState.Enter();
     }
 
-    public Direction GetDirectionOfVector(Vector2 direction)
+    public void UpdateInternalForce(Vector2 force, float decreasePerSecond)
     {
-        direction = direction.normalized;
+        internalForce = force;
+        internalDecreaseIntensity = decreasePerSecond;
+    }
 
-        int angle = Mathf.RoundToInt(Vector2.SignedAngle(Vector2.up, direction));
+    public void UpdateExternalForce(Vector2 force, float decreasePerSecond)
+    {
+        externalForce = force;
+        externalDecreaseIntensity = decreasePerSecond;
+    }
+
+    public Direction GetDirectionOfVector(Vector2 vector)
+    {
+        vector = vector.normalized;
+
+        int angle = Mathf.RoundToInt(Vector2.SignedAngle(Vector2.up, vector));
         angle = angle <= 0 ? angle * -1 : 360 - angle;
         int angleValue = (angle + 23) / 45 % 8;
 
         return (PlayerBehavior.Direction)angleValue;
+    }
+
+    public Vector2 GetVectorOfDirection(Direction direction)
+    {
+        // 0 = 0
+        // 1 = 45
+        // 2 = 90
+        // 3 = 135
+        // 4 = 180
+        // 5 = 225
+        // 6 = 270
+        // 7 = 315
+
+        float angle = (int)direction * 45;
+        Vector2 vector = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
+
+        return vector.normalized;
     }
 
     public string GetDirectionName()
