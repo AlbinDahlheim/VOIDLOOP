@@ -60,9 +60,14 @@ public class PlayerSwing : PlayerState
 
         int angle = Mathf.RoundToInt(Vector2.SignedAngle(Vector2.up, direction));
         angle = angle <= 0 ? angle * -1 : 360 - angle;
-        int offset = angle == 45 || angle == 225 ? 46 : 44; // All diagonals on keyboard should result in SIDE
-        int angleValue = (angle + offset) / 90 % 4;
-        angleValue += angleValue; // Lock to cardinal directions
+        int angleValue = direction.x > 0.0f ? 2 : 6; // If x = 0, then the angleValue is incorrect, but it should be replaced below
+
+        int verticalRange = 60 / 2; // Desired range gets split in half
+
+        if (angle < verticalRange || angle > (360 - verticalRange))
+            angleValue = 0;
+        else if (angle < (180 + verticalRange) && angle > (180 - verticalRange))
+            angleValue = 4;
 
         if (direction.y > 0.0f)
         {
