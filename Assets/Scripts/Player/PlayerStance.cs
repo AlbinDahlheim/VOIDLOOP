@@ -53,6 +53,7 @@ public class PlayerStance : PlayerState
 
         initialDirection = player.facingDirection;
         previousSpriteFlipX = player.spriteRenderer.flipX;
+        player.unsheathedState.swapHandednesLogic = false;
         player.Shake(SHAKE_AMOUNT, SHAKE_INTENSITY);
 
         bufferList = new();

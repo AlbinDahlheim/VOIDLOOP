@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,6 +16,14 @@ public class PlayerSwing : PlayerState
 
     private PlayerBehavior.Direction storedDirection;
     private bool returnToStance;
+
+    // Alternating same-direction swings in rapid succession
+    private string previousSwingDirection;
+    private bool previousSwingFlipX;
+    private DateTime previousSwingTime;
+
+    private const int RAPID_SWING_BUFFER = 200;
+
 
     public override void OnValidate(PlayerBehavior player)
     {
@@ -102,6 +111,24 @@ public class PlayerSwing : PlayerState
     {
         string direction = player.GetDirectionName();
         direction = direction.Replace("DOWN_", "");
+
+        // Alternating same-direction swings in rapid succession
+        if (DateTime.Now.Subtract(previousSwingTime).TotalMilliseconds <= duration * 1000.0f + RAPID_SWING_BUFFER)
+        {
+            if (previousSwingDirection == direction && previousSwingFlipX == player.spriteRenderer.flipX)
+            {
+                if (previousSwingDirection == "UP" || previousSwingDirection == "DOWN")
+                    player.spriteRenderer.flipX = !player.spriteRenderer.flipX;
+                else if (direction == "UP_SIDE")
+                    direction = "SIDE";
+                else if (direction == "SIDE")
+                    direction = "UP_SIDE";
+            }
+        }
+
+        previousSwingDirection = direction;
+        previousSwingFlipX = player.spriteRenderer.flipX;
+        previousSwingTime = DateTime.Now;
 
         if (direction == "UP" || direction == "SIDE")
             player.unsheathedState.swapHandednesLogic = true;
