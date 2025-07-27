@@ -35,6 +35,17 @@ public class PlayerSwing : PlayerState
 
         SetVelocity();
         SetAnimation();
+
+        // Not in enter, not even in this script, just want to make notes:
+        // Logic for enemies that die in one hit:
+        // They all get split in two (probably)
+        // During the player swing, the lower remains have a lower order in layer than the player (to make the sword appear over the enemy)
+        // The upper remains have a higher order in layer than the player (to appear over the sword)
+        // The lower remains slide along the ground a short bit, it keeps the shadow
+        // The upper remains fly in an arc (sprite has a Y offset) while having a new shadow display its actual position and slides along the ground (but further than lower)
+        // After the swing is finished, both remains follow the regular order in layer sorting rule
+
+        // COOL THING: All entities should have the same order in layer, and then use Y sorting to do the niceies
     }
 
     public override void Exit()

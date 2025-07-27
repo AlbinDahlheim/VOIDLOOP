@@ -37,6 +37,12 @@ public class PlayerUnsheathed : PlayerState
         usingLeftHand = swapHandednesLogic ? !player.spriteRenderer.flipX : player.spriteRenderer.flipX;
         storedFlip = swapHandednesLogic ? !usingLeftHand : usingLeftHand;
         stepCount = 0;
+
+        // Not in enter, just want to make notes:
+        // Use the pooling system for dust clouds to learn how it works kinda
+        // Use new pooling system for hurt blobs (small worth 1 and big worth 2)
+        // Note about the hurt blobs: they should have two spriterenderers, one for the black layer and one for the outline
+        // The outline should have a lower order in layer to make the splashes on the ground seamlessly blend into eachother
     }
 
     public override void Exit()
