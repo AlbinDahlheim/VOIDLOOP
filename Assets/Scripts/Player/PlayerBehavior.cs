@@ -196,6 +196,40 @@ public class PlayerBehavior : MonoBehaviour
         Instantiate(dustCloud, transform.position + offset, transform.rotation);
     }
 
+    public void Shake(int amount, float intensity)
+    {
+        StartCoroutine(ShakeAnimation(amount, intensity));
+    }
+
+    IEnumerator ShakeAnimation(int amount, float intenstiy)
+    {
+        Vector3 originalPos = spriteRenderer.gameObject.transform.localPosition;
+        float directionMultiplier = spriteRenderer.flipX ? -1.0f : 1.0f;
+
+        spriteRenderer.gameObject.transform.localPosition = originalPos + new Vector3(directionMultiplier * intenstiy, 0.0f, 0.0f);
+
+        int currentShakes = 1;
+        float timePassed = 0.0f;
+        float durationPerShake = 0.05f;
+        while (currentShakes <= amount)
+        {
+            yield return null;
+            timePassed += Time.deltaTime;
+
+            if (timePassed >= durationPerShake * currentShakes)
+            {
+                float currentDirection = currentShakes % 2 == 0 ? 1.0f : -1.0f;
+                Vector3 offset = new Vector3(currentDirection * directionMultiplier * intenstiy, 0.0f, 0.0f);
+
+                if (currentShakes >= amount) // Shakes are finished, return back to neutral
+                    offset = Vector3.zero;
+
+                spriteRenderer.gameObject.transform.localPosition = originalPos + offset;
+                currentShakes++;
+            }
+        }
+    }
+
     public void PaletteSwap(Color outlineColor, Color? bodyColor = null, Color? swordColor = null, Color? eyeColor = null)
     {
         spriteRenderer.material.SetColor("_OutlineTargetColor", outlineColor);

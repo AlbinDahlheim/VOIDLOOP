@@ -14,6 +14,7 @@ public class PlayerSwing : PlayerState
     private Vector2 velocityDirection;
 
     private PlayerBehavior.Direction storedDirection;
+    private bool returnToStance;
 
     public override void OnValidate(PlayerBehavior player)
     {
@@ -24,6 +25,7 @@ public class PlayerSwing : PlayerState
     {
         timePassed = 0.0f;
         storedDirection = player.facingDirection;
+        returnToStance = false;
 
         if (player.LeftStickInput != Vector2.zero)
         {
@@ -57,7 +59,12 @@ public class PlayerSwing : PlayerState
     {
         timePassed += Time.deltaTime;
         if (timePassed >= duration)
-            player.ChangeState(player.unsheathedState);
+        {
+            if (returnToStance)
+                player.ChangeState(player.stanceState);
+            else
+                player.ChangeState(player.unsheathedState);
+        }
     }
 
     private void SetDirection(Vector2 leftStickInput)
@@ -106,5 +113,14 @@ public class PlayerSwing : PlayerState
     {
         player.movementForce = Vector2.zero;
         player.UpdateInternalForce(velocityDirection.normalized * movementForce, decreasePerSecond);
+    }
+
+    public override void SwordInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            returnToStance = true;
+
+        if (context.canceled)
+            returnToStance = false;
     }
 }

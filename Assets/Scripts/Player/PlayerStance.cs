@@ -26,6 +26,9 @@ public class PlayerStance : PlayerState
     private const int MAX_BUFFER_SIZE = 32;
     private const float NEUTRAL_MAGNITUDE_WINDOW = 0.1f;
 
+    private const int SHAKE_AMOUNT = 2;
+    private const float SHAKE_INTENSITY = 1.0f / 32.0f;
+
     public float releaseDuration;
     public float finalFrameDuration;
 
@@ -50,6 +53,7 @@ public class PlayerStance : PlayerState
 
         initialDirection = player.facingDirection;
         previousSpriteFlipX = player.spriteRenderer.flipX;
+        player.Shake(SHAKE_AMOUNT, SHAKE_INTENSITY);
 
         bufferList = new();
         AddEntryToBuffer(BufferEntry.SHEATHE);
@@ -298,6 +302,7 @@ public class PlayerStance : PlayerState
         if (context.performed)
         {
             AddEntryToBuffer(BufferEntry.SHEATHE);
+            player.Shake(SHAKE_AMOUNT, SHAKE_INTENSITY);
 
             holding = true;
         }
