@@ -24,9 +24,9 @@ public class PlayerSwing : PlayerState
     // Alternating same-direction swings in rapid succession
     private string previousSwingDirection;
     private bool previousSwingFlipX;
-    private DateTime previousSwingTime;
+    private float previousTimeSinceSwing;
 
-    private const int RAPID_SWING_BUFFER = 200;
+    private const float RAPID_SWING_BUFFER = 0.2f;
 
     public override void OnValidate(PlayerBehavior player)
     {
@@ -81,6 +81,11 @@ public class PlayerSwing : PlayerState
         }
     }
 
+    public void ConstantlyUpdate()
+    {
+        previousTimeSinceSwing += Time.deltaTime;
+    }
+
     private void SetDirection(Vector2 leftStickInput)
     {
         Vector2 direction = leftStickInput.normalized;
@@ -118,7 +123,7 @@ public class PlayerSwing : PlayerState
         direction = direction.Replace("DOWN_", "");
 
         // Alternating same-direction swings in rapid succession
-        if (DateTime.Now.Subtract(previousSwingTime).TotalMilliseconds <= duration * 1000.0f + RAPID_SWING_BUFFER) // DOES NOT WORK WITH HITSTOP DAMN
+        if (previousTimeSinceSwing <= duration + RAPID_SWING_BUFFER)
         {
             if (previousSwingDirection == direction && previousSwingFlipX == player.spriteRenderer.flipX)
             {
@@ -133,7 +138,7 @@ public class PlayerSwing : PlayerState
 
         previousSwingDirection = direction;
         previousSwingFlipX = player.spriteRenderer.flipX;
-        previousSwingTime = DateTime.Now;
+        previousTimeSinceSwing = 0.0f;
 
         if (direction == "UP" || direction == "SIDE")
             player.unsheathedState.swapHandednesLogic = true;
@@ -151,15 +156,19 @@ public class PlayerSwing : PlayerState
     {
         float animationMultiplier = 1.5f;
         float singleFrameTime = 1.0f / 12.0f;
+        int activeFrames = 3;
 
         swingCollider.enabled = false;
 
-        yield return new WaitForSeconds(singleFrameTime / animationMultiplier);
+        float timePassed = 0.0f;
+        while(timePassed < (singleFrameTime * (activeFrames + 1)) / animationMultiplier)
+        {
+            yield return null;
 
-        swingCollider.enabled = true;
-
-        yield return new WaitForSeconds((singleFrameTime * 3.0f) / animationMultiplier); // avoid the usage of two waitforseconds with this short times
-
+            timePassed += Time.deltaTime;
+            if (timePassed > singleFrameTime / animationMultiplier)
+                swingCollider.enabled = true;
+        }
         swingCollider.enabled = false;
     }
 

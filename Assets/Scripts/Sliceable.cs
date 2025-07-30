@@ -14,16 +14,7 @@ public class Sliceable : MonoBehaviour
         int angle = Mathf.RoundToInt(Vector2.SignedAngle(Vector2.up, angleVector.normalized));
         angle = angle <= 0 ? angle * -1 : 360 - angle;
 
-        if (facingAngle.HasValue)
-        {
-            //float deltaAngle = Mathf.Abs(Mathf.DeltaAngle(facingAngle.Value, angle));
-            //float magnitude = angleVector.magnitude;
-
-            //Debug.Log(deltaAngle + ", " + magnitude);
-
-            //if (magnitude >= 2.0f * (1.0f - deltaAngle / 225.0f)) // use actual collider radius
-            //    return;
-        }
+        // shoot in some direction idk but do that in sliced()
 
         Sliced();
     }

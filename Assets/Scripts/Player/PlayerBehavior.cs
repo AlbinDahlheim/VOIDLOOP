@@ -93,6 +93,7 @@ public class PlayerBehavior : MonoBehaviour
     private void Update()
     {
         UpdateInput();
+        ConstantlyUpdate();
 
         currentState.Update();
     }
@@ -102,6 +103,11 @@ public class PlayerBehavior : MonoBehaviour
         UpdatePhysics();
 
         currentState.FixedUpdate();
+    }
+
+    private void ConstantlyUpdate() // Update that runs even when not in the current state
+    {
+        swingState.ConstantlyUpdate();
     }
 
     private void UpdateInput()
