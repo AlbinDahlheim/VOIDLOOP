@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +16,8 @@ public class PlayerSwing : PlayerState
     public float decreasePerSecond;
     private Vector2 velocityDirection;
 
+    public Collider2D swingCollider;
+
     private PlayerBehavior.Direction storedDirection;
     private bool returnToStance;
 
@@ -23,7 +27,6 @@ public class PlayerSwing : PlayerState
     private DateTime previousSwingTime;
 
     private const int RAPID_SWING_BUFFER = 200;
-
 
     public override void OnValidate(PlayerBehavior player)
     {
@@ -46,6 +49,7 @@ public class PlayerSwing : PlayerState
 
         SetVelocity();
         SetAnimation();
+        player.StartCoroutine(SetSwingCollider());
 
         // Not in enter, not even in this script, just want to make notes:
         // Logic for enemies that die in one hit:
@@ -62,6 +66,7 @@ public class PlayerSwing : PlayerState
     public override void Exit()
     {
         player.facingDirection = storedDirection;
+        swingCollider.enabled = false;
     }
 
     public override void Update()
@@ -113,7 +118,7 @@ public class PlayerSwing : PlayerState
         direction = direction.Replace("DOWN_", "");
 
         // Alternating same-direction swings in rapid succession
-        if (DateTime.Now.Subtract(previousSwingTime).TotalMilliseconds <= duration * 1000.0f + RAPID_SWING_BUFFER)
+        if (DateTime.Now.Subtract(previousSwingTime).TotalMilliseconds <= duration * 1000.0f + RAPID_SWING_BUFFER) // DOES NOT WORK WITH HITSTOP DAMN
         {
             if (previousSwingDirection == direction && previousSwingFlipX == player.spriteRenderer.flipX)
             {
@@ -140,6 +145,22 @@ public class PlayerSwing : PlayerState
     {
         player.movementForce = Vector2.zero;
         player.UpdateInternalForce(velocityDirection.normalized * movementForce, decreasePerSecond);
+    }
+
+    private IEnumerator SetSwingCollider()
+    {
+        float animationMultiplier = 1.5f;
+        float singleFrameTime = 1.0f / 12.0f;
+
+        swingCollider.enabled = false;
+
+        yield return new WaitForSeconds(singleFrameTime / animationMultiplier);
+
+        swingCollider.enabled = true;
+
+        yield return new WaitForSeconds((singleFrameTime * 3.0f) / animationMultiplier); // avoid the usage of two waitforseconds with this short times
+
+        swingCollider.enabled = false;
     }
 
     public override void SwordInput(InputAction.CallbackContext context)
