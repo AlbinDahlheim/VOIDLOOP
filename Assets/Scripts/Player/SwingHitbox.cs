@@ -6,13 +6,27 @@ public class SwingHitbox : MonoBehaviour
     public PlayerBehavior player;
     public CircleCollider2D swingCollider;
 
+    private Collider2D target = null;
+
+    private void Update()
+    {
+        if (target != null)
+            SwingHit(target.GetComponent<Sliceable>(), target.transform.position, target.GetComponent<CircleCollider2D>().radius);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.GetComponent<Sliceable>() != null && collision.GetComponent<CircleCollider2D>() != null)
         {
             SwingHit(collision.GetComponent<Sliceable>(), collision.transform.position, collision.GetComponent<CircleCollider2D>().radius);
+            target = collision;
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision == target)
+            target = null;
     }
 
     private void SwingHit(Sliceable slicable, Vector2 targetPosition, float colliderRadius)
@@ -29,6 +43,7 @@ public class SwingHitbox : MonoBehaviour
             return;
 
         slicable.Slice(player.transform.position, GetAngleOfCardinalFacingDirection());
+        target = null;
     }
 
     private int GetAngleOfCardinalFacingDirection()
