@@ -156,7 +156,7 @@ public class PlayerSheathed : PlayerState
 
     private bool IsCurrentNextToPrevious(int current, int previous)
     {
-        int difference = Math.Abs(current - previous);
+        int difference = Mathf.Abs(current - previous);
         // Since there are 8 directions, we also need to take the difference between min and max direction values into account
         return (difference == 1 || difference == 7);
     }

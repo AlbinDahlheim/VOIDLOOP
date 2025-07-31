@@ -207,12 +207,12 @@ public class PlayerBehavior : MonoBehaviour
         StartCoroutine(ShakeAnimation(amount, intensity));
     }
 
-    IEnumerator ShakeAnimation(int amount, float intenstiy)
+    IEnumerator ShakeAnimation(int amount, float intensity)
     {
         Vector3 originalPos = spriteRenderer.gameObject.transform.localPosition;
         float directionMultiplier = spriteRenderer.flipX ? -1.0f : 1.0f;
 
-        spriteRenderer.gameObject.transform.localPosition = originalPos + new Vector3(directionMultiplier * intenstiy, 0.0f, 0.0f);
+        spriteRenderer.gameObject.transform.localPosition = originalPos + new Vector3(directionMultiplier * intensity, 0.0f, 0.0f);
 
         int currentShakes = 1;
         float timePassed = 0.0f;
@@ -225,7 +225,7 @@ public class PlayerBehavior : MonoBehaviour
             if (timePassed >= durationPerShake * currentShakes)
             {
                 float currentDirection = currentShakes % 2 == 0 ? 1.0f : -1.0f;
-                Vector3 offset = new Vector3(currentDirection * directionMultiplier * intenstiy, 0.0f, 0.0f);
+                Vector3 offset = new Vector3(currentDirection * directionMultiplier * intensity, 0.0f, 0.0f);
 
                 if (currentShakes >= amount) // Shakes are finished, return back to neutral
                     offset = Vector3.zero;

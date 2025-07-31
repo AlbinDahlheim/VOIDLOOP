@@ -129,7 +129,10 @@ public class PlayerStance : PlayerState
         }
 
         if (!CurrentEntryMatches((BufferEntry)currentDirection))
+        {
+            AddCardinalEntryBetweenDiagonals((BufferEntry)currentDirection); // pls no race condition
             AddEntryToBuffer((BufferEntry)currentDirection);
+        }
 
         player.animator.Play($"STANCE_{player.GetDirectionName()}");
     }
@@ -197,6 +200,37 @@ public class PlayerStance : PlayerState
             player.ChangeState(player.sheathedState);
     }
 
+    private void AddCardinalEntryBetweenDiagonals(BufferEntry entry)
+    {
+        BufferEntry previousEntry = bufferList[bufferList.Count - 1];
+
+        int currentEntryValue = (int)entry;
+        int previousEntryValue = (int)previousEntry;
+
+        if (currentEntryValue > 7 || previousEntryValue > 7) // At least one entry is out of bounds to be a direction
+            return;
+
+        if (currentEntryValue % 2 == 0 || previousEntryValue % 2 == 0) // At least one entry is not a diagonal direction
+            return;
+
+        int difference = Mathf.Abs(currentEntryValue - previousEntryValue);
+
+        if (difference != 2 && difference != 6) // The directions are adjacent relatively speaking
+            return;
+
+        string currentEntryString = entry.ToString();
+        string previousEntryString = previousEntry.ToString();
+
+        if (currentEntryString.Contains("UP") && previousEntryString.Contains("UP"))
+            AddEntryToBuffer(BufferEntry.UP);
+        else if (currentEntryString.Contains("DOWN") && previousEntryString.Contains("DOWN"))
+            AddEntryToBuffer(BufferEntry.DOWN);
+        else if (currentEntryString.Contains("LEFT") && previousEntryString.Contains("LEFT"))
+            AddEntryToBuffer(BufferEntry.LEFT);
+        else if (currentEntryString.Contains("RIGHT") && previousEntryString.Contains("RIGHT"))
+            AddEntryToBuffer(BufferEntry.RIGHT);
+    }
+
     private void AddEntryToBuffer(BufferEntry entry)
     {
         if (bufferList.Count >= MAX_BUFFER_SIZE)
@@ -211,7 +245,7 @@ public class PlayerStance : PlayerState
 
         // Clear diagonals not preceeded by NEUTRAL and replace all other diagonals with LEFT/RIGHT
         // Clear cardinal directions preceeded by a diagonal which in itself is preceeded by the previous cardinal direction
-        // (or NEUTRAL if the previous cardinal direction was LEFT/RIGHT)
+        // (or NEUTRAL/SHEATHE if the previous cardinal direction was LEFT/RIGHT)
         for (int i = parsedBuffer.Count - 1; i > 0; i--)
         {
             if ((int)parsedBuffer[i] > 7) // Entry is out of bounds to be a direction
