@@ -25,6 +25,7 @@ public class Sliceable : MonoBehaviour
 
     private IEnumerator Hitstop(float duration)
     {
+        // send hitstop to some sort of hitstop manager to make it work with multiple sources (DON'T JUST +=, BUT REPLACE IF HIGHER
         Time.timeScale = 0.0f; // What happens if multiple things got hit?
         yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = 1.0f;
