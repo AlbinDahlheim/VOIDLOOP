@@ -33,7 +33,7 @@ public class Sliceable : MonoBehaviour
 
     private IEnumerator HitShake(float duration, Vector3 direction)
     {
-        Vector3 originalPos = spriteRenderer.gameObject.transform.localPosition;
+        Vector3 originalPos = spriteRenderer.gameObject.transform.localPosition; // Maybe this should be set in start?
         float intensity = 1.0f / 16.0f;
 
         spriteRenderer.gameObject.transform.localPosition = originalPos + direction.normalized * intensity;
@@ -48,7 +48,7 @@ public class Sliceable : MonoBehaviour
 
             if (timePassed >= durationPerShake * currentShakes)
             {
-                float directionMultiplier = currentShakes % 2 == 0 ? 1.0f : -1.0f; // rename to direction multiplier
+                float directionMultiplier = currentShakes % 2 == 0 ? 1.0f : -1.0f;
                 Vector3 offset = direction.normalized * intensity * directionMultiplier;
 
                 spriteRenderer.gameObject.transform.localPosition = originalPos + offset;

@@ -11,16 +11,13 @@ public class SwingHitbox : MonoBehaviour
     private void Update()
     {
         if (target != null)
-            SwingHit(target.GetComponent<Sliceable>(), target.transform.position, target.GetComponent<CircleCollider2D>().radius);
+            SwingHit(target);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.GetComponent<Sliceable>() != null && collision.GetComponent<CircleCollider2D>() != null)
-        {
-            SwingHit(collision.GetComponent<Sliceable>(), collision.transform.position, collision.GetComponent<CircleCollider2D>().radius);
-            target = collision;
-        }
+            SwingHit(collision);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -29,8 +26,18 @@ public class SwingHitbox : MonoBehaviour
             target = null;
     }
 
-    private void SwingHit(Sliceable slicable, Vector2 targetPosition, float colliderRadius)
+    private void SwingHit(Collider2D collision)
     {
+        if (collision.GetComponent<Sliceable>() == null || collision.GetComponent<CircleCollider2D>() == null)
+        {
+            target = null;
+            return;
+        }
+
+        Sliceable sliceable = collision.GetComponent<Sliceable>();
+        Vector2 targetPosition = collision.transform.position;
+        float colliderRadius = collision.GetComponent<CircleCollider2D>().radius;
+
         Vector2 angleVector = targetPosition - new Vector2(player.transform.position.x, player.transform.position.y);
 
         int angle = Mathf.RoundToInt(Vector2.SignedAngle(Vector2.up, angleVector.normalized));
@@ -40,9 +47,12 @@ public class SwingHitbox : MonoBehaviour
         float magnitude = angleVector.magnitude - colliderRadius;
 
         if (magnitude > swingCollider.radius * (1.0f - deltaAngle / 270))
+        {
+            target = collision;
             return;
+        }
 
-        slicable.Slice(player.transform.position, GetAngleOfCardinalFacingDirection());
+        sliceable.Slice(player.transform.position, GetAngleOfCardinalFacingDirection());
         target = null;
     }
 

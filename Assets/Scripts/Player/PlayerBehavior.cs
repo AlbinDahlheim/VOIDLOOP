@@ -209,7 +209,7 @@ public class PlayerBehavior : MonoBehaviour
 
     IEnumerator ShakeAnimation(int amount, float intensity)
     {
-        Vector3 originalPos = spriteRenderer.gameObject.transform.localPosition;
+        Vector3 originalPos = spriteRenderer.gameObject.transform.localPosition; // Maybe this should be set in start?
         float directionMultiplier = spriteRenderer.flipX ? -1.0f : 1.0f;
 
         spriteRenderer.gameObject.transform.localPosition = originalPos + new Vector3(directionMultiplier * intensity, 0.0f, 0.0f);
