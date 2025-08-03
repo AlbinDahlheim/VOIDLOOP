@@ -3,11 +3,20 @@ using UnityEngine;
 
 public class Sliceable : MonoBehaviour
 {
+    public int hp;
+
+    public float launchedDuration;
+    public float launchedIntensity; // Maybe separate upper and lower values? Perhaps also combine intensity with height?
+    public float launchedHeight;
+
     public float hitstopDuration;
 
     public SpriteRenderer spriteRenderer;
+    public GameObject mainParent;
 
-    // TODO: Add HP if it should be reused for big boys
+    public GameObject slicedRemains;
+    public Sprite lowerRemains, upperRemains;
+
     // TODO: Keep track of if the object has been sliced this cycle
 
     public void Slice(Vector2 slicerPosition, int? facingAngle = null)
@@ -18,9 +27,10 @@ public class Sliceable : MonoBehaviour
         angle = angle <= 0 ? angle * -1 : 360 - angle;
 
         // Play some sort of sound, maybe spawn something empty that does it? idk
-        float directionMultiplier = angle > 180 ? -1.0f : 1.0f; 
+
         StartCoroutine(Hitstop(hitstopDuration));
         StartCoroutine(HitShake(hitstopDuration, angleVector));
+        StartCoroutine(Damage(hitstopDuration, angleVector));
     }
 
     private IEnumerator Hitstop(float duration)
@@ -57,5 +67,19 @@ public class Sliceable : MonoBehaviour
         }
 
         spriteRenderer.gameObject.transform.localPosition = originalPos;
+    }
+
+    private IEnumerator Damage(float duration, Vector2 direction)
+    {
+        hp -= 1;
+        yield return new WaitForSecondsRealtime(duration);
+
+        if (hp <= 0)
+            Die();
+    }
+
+    private void Die()
+    {
+        //Destroy(mainParent);
     }
 }
