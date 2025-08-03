@@ -5,6 +5,8 @@ public class Sliceable : MonoBehaviour
 {
     public int hp;
 
+    public Color bloodColor;
+
     public float launchedDuration;
     public float launchedIntensity; // Maybe separate upper and lower values? Perhaps also combine intensity with height?
     public float launchedHeight;
@@ -80,6 +82,8 @@ public class Sliceable : MonoBehaviour
 
     private void Die()
     {
+        // use blood color in some way
+
         //Destroy(mainParent);
     }
 }
