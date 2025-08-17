@@ -7,17 +7,21 @@ public class Sliceable : MonoBehaviour
 
     public Color bloodColor;
 
-    public float launchedDuration;
-    public float launchedIntensity; // Maybe separate upper and lower values? Perhaps also combine intensity with height?
-    public float launchedHeight;
+    public float upperLaunchedDuration;
+    public float upperLaunchedIntensity;
+    public float upperLaunchedHeight;
+
+    public float lowerLaunchedDuration;
+    public float lowerLaunchedIntensity;
+    public float lowerLaunchedHeight;
 
     public float hitstopDuration;
 
     public SpriteRenderer spriteRenderer;
     public GameObject mainParent;
 
-    public GameObject slicedRemains;
-    public Sprite lowerRemains, upperRemains;
+    public GameObject remainsObject;
+    public Sprite wholeRemains, lowerRemains, upperRemains; // Ordered to match what feels natural when making sprites
 
     // TODO: Keep track of if the object has been sliced this cycle
 
@@ -71,19 +75,35 @@ public class Sliceable : MonoBehaviour
         spriteRenderer.gameObject.transform.localPosition = originalPos;
     }
 
-    private IEnumerator Damage(float duration, Vector2 direction)
+    private IEnumerator Damage(float duration, Vector2 direction) // add a damage type enum I guess
     {
         hp -= 1;
         yield return new WaitForSecondsRealtime(duration);
 
         if (hp <= 0)
-            Die();
+            Die(direction);
     }
 
-    private void Die()
+    private void Die(Vector2 direction)
     {
         // use blood color in some way
 
+        GameObject upper = Instantiate(remainsObject, transform.position, transform.rotation);
+        upper.GetComponent<SlicedRemains>().SetSprite(upperRemains);
+        upper.GetComponent<SlicedRemains>().UpperLaunch(direction, upperLaunchedDuration, upperLaunchedIntensity, upperLaunchedHeight);
+
+        GameObject lower = Instantiate(remainsObject, transform.position, transform.rotation);
+        lower.GetComponent<SlicedRemains>().SetSprite(lowerRemains);
+        lower.GetComponent<SlicedRemains>().LowerLaunch(direction, lowerLaunchedDuration, lowerLaunchedIntensity, lowerLaunchedHeight);
+
+        StartCoroutine(TEMP_TESTING());
         //Destroy(mainParent);
+    }
+
+    private IEnumerator TEMP_TESTING()
+    {
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(2.0f);
+        spriteRenderer.enabled = true;
     }
 }

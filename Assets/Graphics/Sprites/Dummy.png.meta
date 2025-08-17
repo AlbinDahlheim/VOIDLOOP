@@ -110,7 +110,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 18
+        y: 26
         width: 24
         height: 24
       alignment: 0
@@ -131,10 +131,10 @@ TextureImporter:
       name: Dummy_1
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 16
-        height: 16
+        x: 26
+        y: 26
+        width: 24
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: Dummy_2
       rect:
         serializedVersion: 2
-        x: 18
+        x: 1
         y: 1
-        width: 16
-        height: 16
+        width: 24
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,6 +167,28 @@ TextureImporter:
       bones: []
       spriteID: 59261f02079246420800000000000000
       internalID: 2622266444602237589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dummy_3
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 1
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 191cba1f63cf6c2418499d617dd7465c
+      internalID: 596449217
       vertices: []
       indices: 
       edges: []
@@ -190,6 +212,7 @@ TextureImporter:
       Dummy_0: 234189154208601328
       Dummy_1: -744929848246202890
       Dummy_2: 2622266444602237589
+      Dummy_3: 596449217
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
