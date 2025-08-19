@@ -1275,13 +1275,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 0
   bloodColor: {r: 0, g: 0, b: 0, a: 0}
-  upperLaunchedDuration: 1
-  upperLaunchedIntensity: 1
-  upperLaunchedHeight: 1
+  upperLaunchedDuration: 0.75
+  upperLaunchedIntensity: 3
+  upperLaunchedHeight: 2
   lowerLaunchedDuration: 0.5
-  lowerLaunchedIntensity: 0.5
-  lowerLaunchedHeight: 0.5
-  hitstopDuration: 0.2
+  lowerLaunchedIntensity: 2
+  lowerLaunchedHeight: 1
+  hitstopDuration: 0.3
   spriteRenderer: {fileID: 1585694702}
   mainParent: {fileID: 1382088815}
   remainsObject: {fileID: 2368976990556612249, guid: 9aeef59ad84614d429b24ddea4783cfb, type: 3}

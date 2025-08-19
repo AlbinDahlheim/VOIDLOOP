@@ -25,12 +25,9 @@ public class Sliceable : MonoBehaviour
 
     // TODO: Keep track of if the object has been sliced this cycle
 
-    public void Slice(Vector2 slicerPosition, int? facingAngle = null)
+    public void Slice(Vector2 slicerPosition, int? facingAngle = null) // Damage type?
     {
         Vector2 angleVector = new Vector2(transform.position.x, transform.position.y) - slicerPosition;
-
-        int angle = Mathf.RoundToInt(Vector2.SignedAngle(Vector2.up, angleVector.normalized));
-        angle = angle <= 0 ? angle * -1 : 360 - angle;
 
         // Play some sort of sound, maybe spawn something empty that does it? idk
 
@@ -87,17 +84,34 @@ public class Sliceable : MonoBehaviour
     private void Die(Vector2 direction)
     {
         // use blood color in some way
+        bool flipX = direction.x < 0.0f;
 
         GameObject upper = Instantiate(remainsObject, transform.position, transform.rotation);
-        upper.GetComponent<SlicedRemains>().SetSprite(upperRemains);
-        upper.GetComponent<SlicedRemains>().UpperLaunch(direction, upperLaunchedDuration, upperLaunchedIntensity, upperLaunchedHeight);
+        upper.GetComponent<SlicedRemains>().SetSprite(upperRemains, flipX);
+        upper.GetComponent<SlicedRemains>().Launch(AngleAdjusted(direction, 0, 135), upperLaunchedDuration, upperLaunchedIntensity, upperLaunchedHeight, 2, false);
 
         GameObject lower = Instantiate(remainsObject, transform.position, transform.rotation);
-        lower.GetComponent<SlicedRemains>().SetSprite(lowerRemains);
-        lower.GetComponent<SlicedRemains>().LowerLaunch(direction, lowerLaunchedDuration, lowerLaunchedIntensity, lowerLaunchedHeight);
+        lower.GetComponent<SlicedRemains>().SetSprite(lowerRemains, flipX);
+        lower.GetComponent<SlicedRemains>().Launch(AngleAdjusted(direction, 0, 135), lowerLaunchedDuration, lowerLaunchedIntensity, lowerLaunchedHeight, 1, false);
 
-        StartCoroutine(TEMP_TESTING());
         //Destroy(mainParent);
+        StartCoroutine(TEMP_TESTING());
+    }
+
+    private Vector2 AngleAdjusted(Vector2 direction, int angleOffset, int randomizedRange)
+    {
+        int angle = Mathf.RoundToInt(Vector2.SignedAngle(Vector2.up, direction.normalized));
+        angle = angle <= 0 ? angle * -1 : 360 - angle;
+
+        angleOffset *= angle > 180 ? -1 : 1;
+
+        randomizedRange += randomizedRange % 2 == 1 ? 1 : 0;
+        randomizedRange /= 2;
+
+        angle += Random.Range(-randomizedRange, randomizedRange + 1);
+        angle += angleOffset;
+
+        return new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad)).normalized;
     }
 
     private IEnumerator TEMP_TESTING()

@@ -7,9 +7,6 @@ public class SlicedRemains : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Rigidbody2D rb2d;
 
-    public int layerIncrease;
-    public int layerDecrease;
-
     private int orderInLayer;
 
     private void OnEnable()
@@ -23,36 +20,24 @@ public class SlicedRemains : MonoBehaviour
         return value;
     }
 
-    public void SetSprite(Sprite sprite)
+    public void SetSprite(Sprite sprite, bool flipX)
     {
         spriteRenderer.sprite = sprite;
+        spriteRenderer.flipX = flipX;
     }
 
-    public void UpperLaunch(Vector2 direction, float duration, float intensity, float height)
+    public void Launch(Vector2 direction, float duration, float intensity, float height, int layerIncrease, bool spin)
     {
-        // The direction maybe should be random?
-
         duration = RandomModifier(duration);
         intensity = RandomModifier(intensity);
         height = RandomModifier(height);
 
         spriteRenderer.sortingOrder = orderInLayer + layerIncrease;
 
-        StartCoroutine(Launch(direction, duration, intensity, height, true));
+        StartCoroutine(LaunchAnimation(direction, duration, intensity, height, spin));
     }
 
-    public void LowerLaunch(Vector2 direction, float duration, float intensity, float height)
-    {
-        duration = RandomModifier(duration);
-        intensity = RandomModifier(intensity);
-        height = RandomModifier(height);
-
-        spriteRenderer.sortingOrder = orderInLayer - layerDecrease;
-
-        StartCoroutine(Launch(direction, duration, intensity, height, false));
-    }
-
-    private IEnumerator Launch(Vector2 direction, float duration, float intensity, float height, bool spin)
+    private IEnumerator LaunchAnimation(Vector2 direction, float duration, float intensity, float height, bool spin)
     {
         // REMEMBER SOME SORT OF COLLISION CHECK
         // Maybe some raycast logic, calculate the length of the idk
@@ -60,13 +45,21 @@ public class SlicedRemains : MonoBehaviour
         // BOUNCING SHOULD BE POSSIBLE, DO SOMETHING WITH DOT PRODUCT OR SOMETHING IDK
 
         rb2d.linearVelocity = direction.normalized * intensity;
+        float rotationValue = direction.x < 0.0f ? -360.0f : 360.0f; 
 
         float timePassed = 0.0f;
         while (timePassed < duration)
         {
             float lerpValue = Mathf.Sin(timePassed / duration * 180.0f * Mathf.Deg2Rad);
-
             spriteRenderer.transform.localPosition = Vector2.Lerp(Vector2.zero, new Vector2(0.0f, height), lerpValue);
+            
+            if (spin)
+            {
+                float spinPoint = Mathf.Ceil(timePassed * 8.0f / duration);
+                spinPoint /= 8.0f;
+                spriteRenderer.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, rotationValue * spinPoint);
+            }
+
             yield return null;
 
             timePassed += Time.deltaTime;
@@ -78,15 +71,16 @@ public class SlicedRemains : MonoBehaviour
         StartCoroutine(DarkenRemains());
 
         // Simulates the effect of being pushed into the ground before bouncing back up to normal
-        float shakeTime = 0.05f;
+        float shakeTime = 0.075f;
         spriteRenderer.transform.localPosition = new Vector2(0.0f, 0.0f - 1.0f / 16.0f);
+        spriteRenderer.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
         yield return new WaitForSeconds(shakeTime);
         spriteRenderer.transform.localPosition = Vector2.zero;
     }
 
     private IEnumerator DarkenRemains()
     {
-        float darknessLevel = 0.75f;
+        float darknessLevel = RandomModifier(0.75f, 0.15f);
 
         Color baseColor = spriteRenderer.color;
         Color targetColor = new Color(baseColor.r * darknessLevel, baseColor.g * darknessLevel, baseColor.b * darknessLevel, baseColor.a);
