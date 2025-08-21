@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 
 public class SlicedRemains : MonoBehaviour
 {
-    public SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer, shadowRenderer;
     public Rigidbody2D rb2d;
 
     private int orderInLayer;
@@ -20,9 +20,10 @@ public class SlicedRemains : MonoBehaviour
         return value;
     }
 
-    public void SetSprite(Sprite sprite, bool flipX)
+    public void SetSprite(Sprite sprite, Color shadowColor, bool flipX)
     {
         spriteRenderer.sprite = sprite;
+        shadowRenderer.color = shadowColor;
         spriteRenderer.flipX = flipX;
     }
 

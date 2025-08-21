@@ -17,7 +17,7 @@ public class Sliceable : MonoBehaviour
 
     public float hitstopDuration;
 
-    public SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer, shadowRenderer;
     public GameObject mainParent;
 
     public GameObject remainsObject;
@@ -85,13 +85,14 @@ public class Sliceable : MonoBehaviour
     {
         // use blood color in some way
         bool flipX = direction.x < 0.0f;
+        Color shadowColor = shadowRenderer.color;
 
         GameObject upper = Instantiate(remainsObject, transform.position, transform.rotation);
-        upper.GetComponent<SlicedRemains>().SetSprite(upperRemains, flipX);
+        upper.GetComponent<SlicedRemains>().SetSprite(upperRemains, shadowColor, flipX);
         upper.GetComponent<SlicedRemains>().Launch(AngleAdjusted(direction, 0, 135), upperLaunchedDuration, upperLaunchedIntensity, upperLaunchedHeight, 2, false);
 
         GameObject lower = Instantiate(remainsObject, transform.position, transform.rotation);
-        lower.GetComponent<SlicedRemains>().SetSprite(lowerRemains, flipX);
+        lower.GetComponent<SlicedRemains>().SetSprite(lowerRemains, shadowColor, flipX);
         lower.GetComponent<SlicedRemains>().Launch(AngleAdjusted(direction, 0, 135), lowerLaunchedDuration, lowerLaunchedIntensity, lowerLaunchedHeight, 1, false);
 
         //Destroy(mainParent);
@@ -117,7 +118,9 @@ public class Sliceable : MonoBehaviour
     private IEnumerator TEMP_TESTING()
     {
         spriteRenderer.enabled = false;
+        shadowRenderer.enabled = false;
         yield return new WaitForSeconds(2.0f);
         spriteRenderer.enabled = true;
+        shadowRenderer.enabled = true;
     }
 }
